@@ -8,11 +8,10 @@ In this project you will build such a pipeline.
 
 ## Submission links
 
-> Replace the two placeholders below with your account URLs before submission.
 > Both destinations must be visible to the Udacity reviewer.
 
 - **Repository platform:** GitHub
-- **Repository URL:** `https://github.com/<YOUR_GITHUB_USERNAME>/build-ml-pipeline-for-short-term-rental-prices`
+- **Repository URL:** `https://github.com/megrn/nyc-airbnb-ml-pipeline`
 - **Public W&B project:** `https://wandb.ai/<YOUR_WANDB_USERNAME>/nyc_airbnb`
 
 ## Completed pipeline
