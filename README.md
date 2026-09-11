@@ -12,7 +12,7 @@ In this project you will build such a pipeline.
 
 - **Repository platform:** GitHub
 - **Repository URL:** `https://github.com/megrn/nyc-airbnb-ml-pipeline`
-- **Public W&B project:** `https://wandb.ai/<YOUR_WANDB_USERNAME>/nyc_airbnb`
+- **Public W&B project:** `https://wandb.ai/mgrn054-null/nyc_airbnb`
 
 ## Completed pipeline
 
