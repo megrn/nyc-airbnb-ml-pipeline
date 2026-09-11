@@ -30,6 +30,13 @@ def go(args: argparse.Namespace) -> None:
         errors="coerce",
     )
 
+    # Release 1.0.1: reject records outside the expected NYC service area.
+    nyc_boundary = dataframe["longitude"].between(
+        -74.25,
+        -73.50,
+    ) & dataframe["latitude"].between(40.5, 41.2)
+    dataframe = dataframe[nyc_boundary].copy()
+
     LOGGER.info("Cleaned data has %s rows and %s columns", *dataframe.shape)
     dataframe.to_csv("clean_sample.csv", index=False)
 
