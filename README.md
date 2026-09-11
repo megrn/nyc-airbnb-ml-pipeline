@@ -6,6 +6,50 @@ to be retrained with the same cadence, necessitating an end-to-end pipeline that
 
 In this project you will build such a pipeline.
 
+## Submission links
+
+> Replace the two placeholders below with your account URLs before submission.
+> Both destinations must be visible to the Udacity reviewer.
+
+- **Repository platform:** GitHub
+- **Repository URL:** `https://github.com/<YOUR_GITHUB_USERNAME>/build-ml-pipeline-for-short-term-rental-prices`
+- **Public W&B project:** `https://wandb.ai/<YOUR_WANDB_USERNAME>/nyc_airbnb`
+
+## Completed pipeline
+
+The repository implements the complete reusable workflow:
+
+1. download `sample.csv` and version it in W&B;
+2. clean duplicates, missing prices, price outliers, and non-NYC coordinates;
+3. validate schema, row count, price limits, geographic bounds, and drift;
+4. split a held-out test artifact from the train/validation data;
+5. train and export a preprocessing plus random-forest inference pipeline;
+6. log validation MAE, R², feature importance, and the model artifact;
+7. evaluate the production-aliased model on the held-out test set.
+
+The exploratory analysis is documented in `src/eda/EDA.ipynb`. Runtime values
+come from `config.yaml`, and every W&B input reference uses an explicit alias.
+
+### Commands used for final verification
+
+```bash
+mlflow run . -P steps=download,basic_cleaning
+# Add the reference alias to clean_sample.csv:latest in W&B, then:
+mlflow run . -P steps=data_check,data_split,train_random_forest
+mlflow run . -P steps=test_regression_model
+```
+
+For the required sweep:
+
+```bash
+mlflow run . -P steps=train_random_forest \
+  -P hydra_options="modeling.max_tfidf_features=10,15,30 modeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 -m"
+```
+
+Future improvements could use cross-validated target metrics, a richer text
+model, temporal validation, formal schema tooling, and automated model-promotion
+gates rather than manual alias assignment.
+
 ## Table of contents
 
 - [Introduction](#build-an-ML-Pipeline-for-Short-Term-Rental-Prices-in-NYC)
