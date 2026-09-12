@@ -45,6 +45,23 @@ mlflow run . -P steps=train_random_forest \
   -P hydra_options="modeling.max_tfidf_features=10,15,30 modeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 -m"
 ```
 
+### Completed hyperparameter search
+
+The W&B project contains four successful `train_random_forest` runs. The three
+additional search runs used distinct configurations:
+
+| Trees | Max depth | Max features | TF-IDF features | Validation MAE |
+| ---: | ---: | ---: | ---: | ---: |
+| 100 | 12 | 0.33 | 10 | 33.95951 |
+| 150 | 15 | 0.50 | 15 | **33.85297** |
+| 200 | 20 | 0.75 | 30 | 34.08031 |
+
+The second configuration achieved the lowest validation MAE. Its
+`random_forest_export:v2` artifact is therefore assigned the W&B alias `prod`.
+Evaluation of `random_forest_export:prod` on the held-out test artifact produced
+MAE `33.21554` and R² `0.57755`, which is comparable to validation performance
+and does not indicate overfitting.
+
 Future improvements could use cross-validated target metrics, a richer text
 model, temporal validation, formal schema tooling, and automated model-promotion
 gates rather than manual alias assignment.
